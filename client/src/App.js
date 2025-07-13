@@ -1,23 +1,28 @@
 import './App.css';
 import { useState } from 'react';
-import ProductSellingPage from './pages/ProductSellingPage';
-import Navbar from './components/Navbar';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Home from './pages/Home';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Navbar from './components/Navbar';
+import ProtectedRoute from './ProtectedRoute';
+
+import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import CategoriesPage from './pages/CategoriesPage';
-import MultipleProductPage from './pages/MutipleProductPage'; // ✅ fixed spelling
+import MultipleProductPage from './pages/MutipleProductPage';
+import ProductSellingPage from './pages/ProductSellingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchResultsPage from "./pages/SearchResultsPage";
 import CheckoutPage from './pages/checkoutPage';
+
 function App() {
   const [productCount, setProductCount] = useState(0);
-  const [productList, setProductList] = useState([]); // ✅ should hold product objects
+  const [productList, setProductList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // ✅ Add product to cart
   const handleAddToCart = (product) => {
     setProductList(prev => [...prev, product]);
     setProductCount(prev => prev + 1);
@@ -25,17 +30,18 @@ function App() {
 
   return (
     <div className="App">
-      <Outlet />
       <Navbar productCount={productCount} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* ✅ Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        <Route path="/sell" element={<ProductSellingPage handleAddToCart={handleAddToCart} />} />
+        {/* ✅ Protected routes */}
+        <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+        <Route path="/sell" element={<ProtectedRoute><ProductSellingPage handleAddToCart={handleAddToCart} /></ProtectedRoute>} />
 
-        <Route path="/products" element={<Outlet />}>
+        <Route path="/products" element={<ProtectedRoute><Outlet /></ProtectedRoute>}>
           <Route
             index
             element={
@@ -56,26 +62,25 @@ function App() {
           />
           <Route
             path=":category/:productId"
-            element={
-              <ProductSellingPage
-                handleAddToCart={handleAddToCart}
-              />
-            }
+            element={<ProductSellingPage handleAddToCart={handleAddToCart} />}
           />
         </Route>
 
         <Route
           path="/products/all/:productId"
-          element={<ProductSellingPage handleAddToCart={handleAddToCart} />}
+          element={<ProtectedRoute><ProductSellingPage handleAddToCart={handleAddToCart} /></ProtectedRoute>}
         />
 
         <Route
           path="/cart"
-          element={<CartPage productList={productList} />}
+          element={<ProtectedRoute><CartPage productList={productList} /></ProtectedRoute>}
         />
-         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/search" element={<SearchResultsPage />} />
+
+        <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+        <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} />
       </Routes>
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://gallajyothsna:322103282114joshu4G@jyothsna.2zrwobb.mongodb.net/ecomDb?retryWrites=true&w=majority&appName=JYOTHSNA";
+const uri = process.env.MONGODB_URI;
 const CartModel = require('./model/CartModel');
 const CategoryModel = require('./model/CategoryModel');
 const InventoryModel = require('./model/InventoryModel');
@@ -11,7 +13,8 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const jwtSecret = process.env.JWT_SECRET;
 
 function authenticateToken(req, res, next) {
     // Get token from Authorization header (Bearer TOKEN)
@@ -23,7 +26,7 @@ function authenticateToken(req, res, next) {
         return res.status(401).json({ message: 'Access Denied: No token provided.', logout: true });
     }
 
-    jwt.verify(token, 'X9@v3&nA2!zLm7#pKd$8rB*Q1tJw%fGc', (err, decoded) => {
+    jwt.verify(token, jwtSecret, (err, decoded) => {
         if (err) {
             // Token is invalid or expired
             if (err.name === 'TokenExpiredError') {
@@ -58,6 +61,18 @@ const authentication = (req, res, next) => {
   console.log(" Authentication middleware triggered");
   next();
 };
+
+const path = require('path');
+
+// Serve frontend in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+  });
+}
+
 
 // 🔐 Login/Register routes (no auth needed)
 
@@ -100,10 +115,11 @@ app.post('/login', async (req, res) => {
     }
      // --- Generate JWT Token ---
         const token = jwt.sign(
-            { userId: user._id }, // Payload: Store user._id (Mongo's auto-generated ID)
-            'X9@v3&nA2!zLm7#pKd$8rB*Q1tJw%fGc',            // Your secret key
-            { expiresIn: '24h' }   // Token expires in 24 hours
-        );
+            { userId: user._id },
+             jwtSecret, // ✅ using process.env.JWT_SECRET
+            { expiresIn: '24h' }
+          );
+
 
      res.status(200).json({
             message: 'Welcome ${user.name}, You are logged in!',

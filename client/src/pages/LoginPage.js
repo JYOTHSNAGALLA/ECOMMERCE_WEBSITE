@@ -1,7 +1,14 @@
 import {NavLink, useNavigate } from "react-router";
+import { useEffect } from "react";
 
 function LoginPage() {
 const navigate = useNavigate();
+useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate]);
 async function handleSubmit(event) {
   event.preventDefault();
   console.log(event.target);
@@ -10,6 +17,7 @@ async function handleSubmit(event) {
     // Here you would typically handle the login logic, e.g., API call
     console.log('Phone:', phone);
     console.log('Password:', password);
+    try {
     const user = await fetch('http://localhost:5000/login',
         {
             method: 'POST',
@@ -28,16 +36,18 @@ if(data.status === "401"){
         }
         console.log('Login successful:', data);
         if (data.token) {
-                    localStorage.setItem('token', data.token);
-                    console.log('Token stored in localStorage:', data.token);
-                }
-                const token = localStorage.getItem('token'); // Retrieve token from local storageInside api call
-        navigate("/")
-        // Redirect or update state as needed
-            }else {
-        console.error('Login failed');
-        // Handle login failure (e.g., show an error message)
-    }   
+          localStorage.setItem("token", data.token);
+          localStorage.setItem('userData', JSON.stringify(data.userData));
+          navigate("/"); // ✅ Redirect after login
+        }
+      } else {
+        alert("Login failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Server error. Try again later.");
+    }
+  
 }
 
     return (
