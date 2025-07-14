@@ -9,6 +9,7 @@ function RegisterPage() {
         const password = event.target.password.value;
         const confirmPassword = event.target.confirmPassword.value;
         const phone = event.target.phone.value;
+        const email = event.target.email.value;
    
         if(password !== confirmPassword) {
             alert("Passwords do not match!");
@@ -21,7 +22,7 @@ function RegisterPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, password, phone }),
+                body: JSON.stringify({ name, password, phone, email }),
             }
         ); 
         console.log("User data:", user);
