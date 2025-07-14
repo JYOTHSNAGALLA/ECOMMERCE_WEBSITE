@@ -7,7 +7,7 @@ const userSchema = new Schema({
   name: { type: String, required: true, trim: true },
   phone: { type: String, required: true, unique: true, trim: true },
   password: { type: String, required: true, trim: true },
-  address: { type: String, trim: true },
+  email: { type: String, required: true, unique: true },
   dp: {
     type: String,
     default: 'https://placehold.co/100x100/A0B0C0/FFFFFF?text=DP'
