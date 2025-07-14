@@ -77,17 +77,27 @@ if (process.env.NODE_ENV === 'production') {
 // 🔐 Login/Register routes (no auth needed)
 
 app.post('/register', async (req, res) => {
-  const { name, phone, password, email} = req.body;
+  const { name, email, phone, password} = req.body;
 
-  console.log('Register attempt:', { name, phone, password, email});
+  console.log('Register attempt:', { name, email, phone, password});
+  
+  if (!email && !phone) {
+    return res.status(400).json({ message: 'Email or phone is required.' });
+  }
 
   try {
-    const existingUser = await UserModel.findOne({ phone });
+    const existingUser = await UserModel.findOne({
+      $or: [
+        { email: email || null },
+        { phone: phone || null }
+      ]
+    });
+
     if (existingUser) {
-      return res.status(400).json({ message: 'Phone number already registered.' });
+      return res.status(400).json({ message: 'Email or Phone number already registered.' });
     }
 
-    const newUser = new UserModel({ name, phone, password, email });
+    const newUser = new UserModel({ name, email, phone, password});
     const savedUser = await newUser.save();
 
     console.log('User saved:', savedUser);
