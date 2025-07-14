@@ -8,7 +8,7 @@ const InventoryModel = require('./model/InventoryModel');
 const OrderModel =require('./model/OrderModel');
 const ProductModel = require('./model/ProductModel');
 const PurchaseBookModel = require('./model/PurchaseBookModel');
-const UserModel = require('./model/UserModel');
+const UserModel = require('./model/UserModel'); // ✅ check the file name and path
 const cors = require('cors'); 
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -79,8 +79,9 @@ if (process.env.NODE_ENV === 'production') {
 app.post('/register', async (req, res) => {
   const { name, phone, password } = req.body;
 
+  console.log('Register attempt:', { name, phone, password });
+
   try {
-    // Check if phone already exists
     const existingUser = await UserModel.findOne({ phone });
     if (existingUser) {
       return res.status(400).json({ message: 'Phone number already registered.' });
@@ -89,17 +90,17 @@ app.post('/register', async (req, res) => {
     const newUser = new UserModel({ name, phone, password });
     const savedUser = await newUser.save();
 
+    console.log('User saved:', savedUser);
+
     res.status(201).json({
       message: 'User registered successfully!',
       user: savedUser
     });
   } catch (err) {
-    console.error('Error registering user:', err.message);
-    console.error(err.stack);
+    console.error(' Error in /register route:', err);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
 
 app.post('/login', async (req, res) => {
   const { phone, password } = req.body; // Extract query parameters

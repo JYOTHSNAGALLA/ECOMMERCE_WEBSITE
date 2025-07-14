@@ -1,7 +1,7 @@
 // model/UserModel.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ecomDbConnection = mongoose.connection.useDb('ecomDb');
+//const ecomDbConnection = mongoose.connection.useDb('ecomDb');
 
 const userSchema = new Schema({
   name: { type: String, required: true, trim: true },
@@ -19,5 +19,5 @@ const userSchema = new Schema({
   timestamps: true
 });
 
-const UserModel = ecomDbConnection.model('User', userSchema);
+const UserModel = mongoose.model('User', userSchema);
 module.exports = UserModel;
