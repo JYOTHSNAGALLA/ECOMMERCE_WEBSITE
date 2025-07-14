@@ -8,9 +8,9 @@ import { CartProvider } from './context/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>/
-    <BrowserRouter basename={process.env.PUBLIC_URL}> {/* ✅ Required for GitHub Pages */}
-      <CartProvider> {/* ✅ Needed if you're using Cart context */}
+  <React.StrictMode>
+    <BrowserRouter>
+      <CartProvider>
         <App />
       </CartProvider>
     </BrowserRouter>

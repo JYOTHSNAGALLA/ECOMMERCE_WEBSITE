@@ -18,7 +18,7 @@ async function handleSubmit(event) {
     console.log('Phone:', phone);
     console.log('Password:', password);
     try {
-    const user = await fetch('http://localhost:5000/login',
+    const user = await fetch(`${process.env.REACT_APP_API_URL}/login`,
         {
             method: 'POST',
             headers: {

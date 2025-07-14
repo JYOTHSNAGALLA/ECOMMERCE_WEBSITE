@@ -15,7 +15,7 @@ function RegisterPage() {
             return;
         }
 
-        const user = await fetch('http://localhost:5000/register',
+        const user = await fetch(`${process.env.REACT_APP_API_URL}/register`,
             {
                 method: 'POST',
                 headers: {
