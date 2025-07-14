@@ -8,7 +8,7 @@ const InventoryModel = require('./model/InventoryModel');
 const OrderModel =require('./model/OrderModel');
 const ProductModel = require('./model/ProductModel');
 const PurchaseBookModel = require('./model/PurchaseBookModel');
-const UserModel = require('./model/UserModel');
+const UserModel = require('./model/User');
 const cors = require('cors'); 
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -94,7 +94,8 @@ app.post('/register', async (req, res) => {
       user: savedUser
     });
   } catch (err) {
-    console.error('Error registering user:', err);
+    console.error('Error registering user:', err.message);
+    console.error(err.stack);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
