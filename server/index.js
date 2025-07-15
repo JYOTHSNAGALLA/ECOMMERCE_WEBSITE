@@ -49,7 +49,13 @@ mongoose.connect(uri)
   .catch((err) => {
     console.error('MongoDB connection error:', err);
   })
-app.use(cors());
+app.use(cors(
+  {
+  origin: 'https://ecommerce-client-auqn.onrender.com', // your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}
+));
 
 app.use(express.json());
 
