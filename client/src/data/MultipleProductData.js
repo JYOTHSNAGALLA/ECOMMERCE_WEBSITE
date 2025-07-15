@@ -4,21 +4,21 @@ export const products = {
     id: 1,
     name: "Dresses",
     price: 699,
-    image: `${process.env.PUBLIC_URL}/assets/product-3.jpeg`,
+    image: "/assets/product-3.jpeg",
     description: "Chic and trendy dresses perfect for all occasions."
     },
     {
     id: 2,
     name: "Trousers",
     price: 549,
-    image: `${process.env.PUBLIC_URL}/assets/product-2.jpeg`,
+    image: "/assets/product-2.jpeg",
     description: "Comfortable and stylish trousers for everyday use."
     },
     {
       id: 3,
       name: "Stylish Sandals",
       price: 1000,
-      image: `${process.env.PUBLIC_URL}/assets/Stylish-Sandals.jpeg`,
+      image: "/assets/Stylish-Sandals.jpeg",
       description: "A stylish sandals for college wear ",
       category: "Women-Footwear"
     },
@@ -26,14 +26,14 @@ export const products = {
     id: 4,
     name: "Formal Skirts",
     price: 499,
-    image: `${process.env.PUBLIC_URL}/assets/product-1.jpeg`,
+    image: "/assets/product-1.jpeg",
     description: "Elegant formal skirts for office and formal occasions."
     },
     {
       id: 5,
       name: "Elegant Heels",
       price: 1500,
-      image: `${process.env.PUBLIC_URL}/assets/Elegant-Heels.jpeg`,
+      image: "/assets/Elegant-Heels.jpeg",
       description: "Elegant heels for special occasions.",
       category: "Women-Footwear"
     },
@@ -41,14 +41,14 @@ export const products = {
     id: 6,
     name: "Jeans",
     price: 659,
-    image: `${process.env.PUBLIC_URL}/assets/product-4.jpeg`,
+    image: "/assets/product-4.jpeg",
     description: "Durable and modern fit jeans for daily wear."
     },
     {
       id: 7,
       name: "Casual Sneakers",
       price: 1200,
-      image: `${process.env.PUBLIC_URL}/assets/Casual-Sneakers.jpeg`,
+      image: "/assets/Casual-Sneakers.jpeg",
       description: "Comfortable sneakers for everyday wear.",
       category: "Women-Footwear"
     },
@@ -58,28 +58,28 @@ export const products = {
     id: 8,
     name: "Men's Denim Jackets",
     price: 550,
-    image: `${process.env.PUBLIC_URL}/assets/product-5.jpeg`,
+    image: "/assets/product-5.jpeg`",
     description: "Stylish denim jackets for men."
   },
   {
     id: 9,
     name: "Men's Tshirts",
     price: 299,
-    image: `${process.env.PUBLIC_URL}/assets/product-6.jpeg`,
+    image: "/assets/product-6.jpeg",
     description: "Comfortable t-shirts for casual wear."
   },
   {
     id: 10,
     name: "Men's Suit",
     price: 2999,
-    image: `${process.env.PUBLIC_URL}/assets/product-7.jpeg`,
+    image: "/assets/product-7.jpeg",
     description: "Premium suits for formal events and office."
   },
   {
     id: 11,
     name: "Men's Shirt",
     price: 499,
-    image: `${process.env.PUBLIC_URL}/assets/product-8.jpeg`,
+    image: "/assets/product-8.jpeg",
     description: "Classic shirts for business and casual wear."
   },
   ],
@@ -88,7 +88,7 @@ export const products = {
       id: 12,
       name: "Smart Phone",
       price: 30000,
-      image: `${process.env.PUBLIC_URL}/assets/Smart-Phone.jpeg`,
+      image: "/assets/Smart-Phone.jpeg",
       description: "Latest smartphone with advanced features.",
       category: "Electronics"
     },
@@ -96,7 +96,7 @@ export const products = {
       id: 12,
       name: "Laptop",
       price: 60000,
-      image: `${process.env.PUBLIC_URL}/assets/Laptop.jpeg`,
+      image: "/assets/Laptop.jpeg",
       description: "High-performance laptop for work and play.",
       category: "Electronics"
     },
@@ -104,7 +104,7 @@ export const products = {
       id: 13,
       name: "Smart Watch",
       price: 5000,
-      image: `${process.env.PUBLIC_URL}/assets/Smart-Watch.jpeg`,
+      image: "/assets/Smart-Watch.jpeg",
       description: "Stylish smartwatch with health tracking.",
       category: "Electronics"
     },
@@ -112,7 +112,7 @@ export const products = {
       id: 14,
       name: "Mobile Phone",
       price: 20000,
-      image: `${process.env.PUBLIC_URL}/assets/Mobile-Phone.jpeg`,
+      image: "/assets/Mobile-Phone.jpeg",
       description: "Latest mobile phone with cutting-edge technology.",
       category:"Mobile"
     },
@@ -120,7 +120,7 @@ export const products = {
       id: 15,
       name: "Tablet",
       price: 25000,
-      image: `${process.env.PUBLIC_URL}/assets/Tablet.jpeg`,
+      image: "/assets/Tablet.jpeg",
       description: "Portable tablet for entertainment and productivity.",
       category:"Mobile"
     },
@@ -128,7 +128,7 @@ export const products = {
       id: 16,
       name: "Smart Speaker",
       price: 3000,
-      image: `${process.env.PUBLIC_URL}/assets/Smart-Speaker.jpeg`,
+      image: "/assets/Smart-Speaker.jpeg",
       description: "Smart speaker with voice assistant.",
       category:"Mobile"
     },
