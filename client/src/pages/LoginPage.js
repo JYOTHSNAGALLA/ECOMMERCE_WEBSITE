@@ -18,13 +18,14 @@ async function handleSubmit(event) {
     console.log('Phone:', phone);
     console.log('Password:', password);
     try {
-    const user = await fetch(`${process.env.REACT_APP_API_URL}/login`,
+    const user = await fetch("https://ecom-server-88fq.onrender.com/login",
         {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ phone, password }),
+            credentials: "include",
         }
     );
     if (user.ok) {
