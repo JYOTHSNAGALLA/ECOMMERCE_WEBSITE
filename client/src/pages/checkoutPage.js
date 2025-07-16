@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/checkout.css"; // <-- CSS file
+import "../App.css"; // <-- CSS file
 
 function checkoutPage() {
   const navigate = useNavigate();
