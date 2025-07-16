@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css"; // <-- CSS file
 
-function checkoutPage() {
+function CheckoutPage() {
   const navigate = useNavigate();
 
   return (
@@ -18,5 +18,5 @@ function checkoutPage() {
   );
 }
 
-export default checkoutPage;
+export default CheckoutPage;
 
