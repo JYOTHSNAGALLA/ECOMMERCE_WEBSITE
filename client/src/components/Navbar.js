@@ -128,12 +128,10 @@ function Navbar() {
   {isLoggedIn ? (
     <div className="avatar-container">
       <button className="avatar-toggle" onClick={toggleDropdown}>
-        <img
-          src={`${process.env.PUBLIC_URL}/assets/avatar-icon.png`}
-          alt="User"
-          className="user-icon"
-        />
-      </button>
+  <div className="text-avatar">
+    {userName?.charAt(0)?.toUpperCase() || 'U'}
+  </div>
+</button>
 
       {showDropdown && (
         <div className="avatar-menu">
