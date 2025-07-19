@@ -3,10 +3,8 @@ import { useState } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import Navbar from './components/Navbar';
 import ProtectedRoute from './ProtectedRoute';
-
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import CategoriesPage from './pages/CategoriesPage';
@@ -15,7 +13,7 @@ import ProductSellingPage from './pages/ProductSellingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchResultsPage from "./pages/SearchResultsPage";
-import CheckoutPage from "./pages/CheckoutPage";
+
 
 function App() {
   const [productCount, setProductCount] = useState(0);
@@ -76,7 +74,7 @@ function App() {
           element={<ProtectedRoute><CartPage productList={productList} /></ProtectedRoute>}
         />
 
-        <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+        
         <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} />
       </Routes>
 
