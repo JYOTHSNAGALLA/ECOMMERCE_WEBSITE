@@ -74,7 +74,7 @@ function App() {
           element={<ProtectedRoute><CartPage productList={productList} /></ProtectedRoute>}
         />
 
-        
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} />
       </Routes>
 
