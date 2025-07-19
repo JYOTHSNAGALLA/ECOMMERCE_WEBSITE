@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchResultsPage from "./pages/SearchResultsPage";
 import CheckoutPage from './pages/CheckoutPage';
+import ThankYouPage from './pages/ThankYouPage';
 
 function App() {
   const [productCount, setProductCount] = useState(0);
@@ -75,6 +76,7 @@ function App() {
         />
 
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/thankyou" element={<ThankYouPage />} />
         <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} />
       </Routes>
 

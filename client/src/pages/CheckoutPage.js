@@ -9,7 +9,13 @@ const CheckoutPage = () => {
 
   const handlePlaceOrder = () => {
     alert('Order placed successfully!');
-    navigate('/thank-you');
+    navigate('/thank-you', {
+  state: {
+    orderId: "ORD12345678",
+    deliveryDate: "20 July 2025",
+    items: cartItems,
+  },
+});
   };
 
   return (
