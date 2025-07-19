@@ -79,72 +79,86 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-  <div className="navbar-top">
-    <div className="navbar-left">
-      {isLoggedIn && (
-        <button className="hamburger" onClick={toggleMenu}>☰</button>
-      )}
-      <NavLink to="/" className="navbar-logo">
-        <img src={`${process.env.PUBLIC_URL}/assets/logo.png`} alt="Shopora Logo" className="logo-img" />
-        <span className="logo-text">Shopora</span>
-      </NavLink>
-    </div>
-
-    <div className="navbar-right">
-      {isLoggedIn && (
-        <NavLink to="/cart" className="cart-icon-link">
-          <div className="cart-icon-wrapper">
-            <img src={`${process.env.PUBLIC_URL}/assets/cart-icon.svg`} alt="Cart" className="cart-icon" />
-            {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
-          </div>
+      {/* Left: Hamburger & Logo */}
+      <div className="navbar-left">
+        {isLoggedIn && (
+          <button className="hamburger" onClick={toggleMenu}>☰</button>
+        )}
+        <NavLink to="/" className="navbar-logo">
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/logo.png`}
+            alt="Shopora Logo"
+            className="logo-img"
+          />
+          <span className="logo-text">Shopora</span>
         </NavLink>
-      )}
+      </div>
 
-      {isLoggedIn ? (
-        <div className="avatar-container">
-          <button className="avatar-toggle" onClick={toggleDropdown}>
-            <div className="text-avatar">{userName?.charAt(0)?.toUpperCase() || 'U'}</div>
+      {/* Center: Search */}
+      <div className="navbar-center">
+        <form onSubmit={handleSearchSubmit} className="search-form">
+          <input
+            type="text"
+            placeholder="Search category..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <button type="submit" className="search-button">
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/search-icon.svg`}
+              alt="Search"
+              className="search-icon"
+            />
           </button>
-          {showDropdown && (
-            <div className="avatar-menu">
-              <p>Hello, {userName}</p>
-              <button onClick={handleLogout}>Logout</button>
+        </form>
+      </div>
+
+      {/* Right: Cart and User */}
+      <div className="navbar-right">
+        {isLoggedIn && (
+          <NavLink to="/cart" className="cart-icon-link">
+            <div className="cart-icon-wrapper">
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/cart-icon.svg`}
+                alt="Cart"
+                className="cart-icon"
+              />
+              {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
             </div>
-          )}
-        </div>
-      ) : (
-        <div className="auth-links">
-          <NavLink to="/login" className="nav-link">Login</NavLink>
-          <NavLink to="/register" className="nav-link">Register</NavLink>
+          </NavLink>
+        )}
+
+        {isLoggedIn ? (
+          <div className="avatar-container">
+            <button className="avatar-toggle" onClick={toggleDropdown}>
+              <div className="text-avatar">
+                {userName?.charAt(0)?.toUpperCase() || 'U'}
+              </div>
+            </button>
+            {showDropdown && (
+              <div className="avatar-menu">
+                <p>Hello, {userName}</p>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="auth-links">
+            <NavLink to="/login" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Login</NavLink>
+            <NavLink to="/register" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Register</NavLink>
+          </div>
+        )}
+      </div>
+
+      {/* Hamburger Menu Items (only for logged-in) */}
+      {menuOpen && isLoggedIn && (
+        <div className="mobile-menu show">
+          <NavLink to="/" className="nav-link">Home</NavLink>
+          <NavLink to="/products" className="nav-link">Products</NavLink>
         </div>
       )}
-    </div>
-  </div>
-
-  {/* Search bar goes in its own row */}
-  <div className="navbar-search">
-    <form onSubmit={handleSearchSubmit} className="search-form">
-      <input
-        type="text"
-        placeholder="Search category..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="search-input"
-      />
-      <button type="submit" className="search-button">
-        <img src={`${process.env.PUBLIC_URL}/assets/search-icon.svg`} alt="Search" className="search-icon" />
-      </button>
-    </form>
-  </div>
-
-  {/* Hamburger dropdown */}
-  {menuOpen && isLoggedIn && (
-    <div className="mobile-menu show">
-      <NavLink to="/" className="nav-link">Home</NavLink>
-      <NavLink to="/products" className="nav-link">Products</NavLink>
-    </div>
-  )}
-</nav>
+    </nav>
   );
 }
 
