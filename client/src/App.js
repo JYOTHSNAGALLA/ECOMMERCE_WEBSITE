@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { Navigate } from "react-router-dom";
 import { useState } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
@@ -36,7 +37,9 @@ function App() {
         {/* ✅ Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-
+        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
         {/* ✅ Protected routes */}
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/sell" element={<ProtectedRoute><ProductSellingPage handleAddToCart={handleAddToCart} /></ProtectedRoute>} />
@@ -75,9 +78,7 @@ function App() {
           path="/cart"
           element={<ProtectedRoute><CartPage productList={productList} /></ProtectedRoute>}
         />
-        <Route path="*" element={<Navigate to="/" />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/thank-you" element={<ThankYouPage />} />
+        
         <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} />
       </Routes>
 
