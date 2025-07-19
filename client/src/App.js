@@ -76,7 +76,7 @@ function App() {
         />
 
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/thankyou" element={<ThankYouPage />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} />
       </Routes>
 
