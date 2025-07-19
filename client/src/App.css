@@ -56,11 +56,15 @@ button {
   border: none;
   color: white;
   cursor: pointer;
-  display: none;
+  display: block; /* Always visible */
+  padding: 0.4rem;
+  border-radius: 6px;
+  transition: background 0.2s ease;
 }
 
 .hamburger:hover {
-  color: #f08804;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #febd69;
 }
 
 .navbar-center {
@@ -265,6 +269,22 @@ button {
   color: #f08804;
 }
 
+.mobile-menu {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  background-color: #232f3e;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 180px;
+  animation: slideDown 0.3s ease-in-out;
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -306,14 +326,14 @@ button {
   }
 
   .mobile-menu {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: #232f3e;
-  padding: 1rem;
-  gap: 1rem;
-  animation: slideDown 0.3s ease-in-out forwards;
-}
+    width: 100%;
+    left: 0;
+    top: 100%;
+    border-radius: 0;
+    position: static;
+    box-shadow: none;
+  }
+  
 .mobile-menu a,
 .mobile-menu span,
 .mobile-menu button {

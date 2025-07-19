@@ -111,13 +111,13 @@ function Navbar() {
 
       {/* Hamburger Menu Items (visible only after login) */}
       {menuOpen && isLoggedIn && (
-        <div className="mobile-menu show">
-          <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Home</NavLink>
-          <NavLink to="/products" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Products</NavLink>
-          <p className="nav-link">👤 {userName}</p>
-          <button onClick={handleLogout} className="nav-link logout-btn">Logout</button>
-        </div>
-      )}
+  <div className="mobile-menu show">
+    <NavLink to="/" className="nav-link">Home</NavLink>
+    <NavLink to="/products" className="nav-link">Products</NavLink>
+    <p className="nav-link">👤 {userName}</p>
+    <button onClick={handleLogout} className="nav-link logout-btn">Logout</button>
+  </div>
+)}
     </nav>
   );
 }
