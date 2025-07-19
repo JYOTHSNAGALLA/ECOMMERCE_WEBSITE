@@ -1,4 +1,5 @@
 import './App.css';
+import { Navigate } from "react-router-dom";
 import { useState } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -81,6 +82,7 @@ function App() {
       </Routes>
 
       <ToastContainer position="top-right" autoClose={3000} />
+      <Navigate to="/some-route" />
     </div>
   );
 }
