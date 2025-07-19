@@ -86,8 +86,14 @@ function Navbar() {
         {isLoggedIn && (
           <button className="hamburger" onClick={toggleMenu}>☰</button>
         )}
-        <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="Logo" className="navbar-logo" />
-        <span className="navbar-title">ShopMate</span>
+        <NavLink to="/" className="navbar-logo">
+        <img
+          src={`${process.env.PUBLIC_URL}/assets/logo.png`}
+          alt="Shopora Logo"
+          className="logo-img"
+        />
+        <span className="logo-text">Shopora</span>
+      </NavLink>
       </div>
 
       {/* Center: Search */}
