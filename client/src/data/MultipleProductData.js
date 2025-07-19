@@ -58,7 +58,7 @@ export const products = {
     id: 8,
     name: "Men's Denim Jackets",
     price: 550,
-    image: "/assets/product-5.jpeg`",
+    image: "/assets/product-5.jpeg",
     description: "Stylish denim jackets for men."
   },
   {
