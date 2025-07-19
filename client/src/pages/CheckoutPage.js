@@ -32,7 +32,7 @@ const CheckoutPage = () => {
       <div className="checkout-right">
         <h3>Order Summary</h3>
         <p>Items: {cartItems.length}</p>
-        <p>Total: ₹{totalAmount.toFixed(2)}</p>
+        <p>Total: ₹{totalAmount !== undefined ? totalAmount.toFixed(2) : "0.00"}</p>
         <button onClick={handlePlaceOrder}>Place Your Order</button>
       </div>
     </div>
