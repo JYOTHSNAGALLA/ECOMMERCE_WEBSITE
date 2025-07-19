@@ -14,10 +14,9 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const totalAmount = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const totalPrice = () => {
+    return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  };
 
   const addToCart = (product) => {
     const exists = cartItems.find((item) => item.id === product.id);
@@ -48,7 +47,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, totalAmount, addToCart, removeFromCart, updateQuantity }}
+      value={{ cartItems, totalPrice, addToCart, removeFromCart, updateQuantity }}
     >
       {children}
     </CartContext.Provider>
