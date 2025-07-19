@@ -37,9 +37,10 @@ function App() {
         {/* ✅ Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="*" element={<Navigate to="/" />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+
         {/* ✅ Protected routes */}
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/sell" element={<ProtectedRoute><ProductSellingPage handleAddToCart={handleAddToCart} /></ProtectedRoute>} />
@@ -78,12 +79,11 @@ function App() {
           path="/cart"
           element={<ProtectedRoute><CartPage productList={productList} /></ProtectedRoute>}
         />
-        
+
         <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} />
       </Routes>
 
       <ToastContainer position="top-right" autoClose={3000} />
-      <Navigate to="/some-route" />
     </div>
   );
 }
