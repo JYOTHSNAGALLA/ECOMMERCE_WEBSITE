@@ -27,6 +27,40 @@ function Navbar() {
     }
   }, []);
 
+  useEffect(() => {
+  const closeMenu = (e) => {
+    if (!e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) {
+      setMenuOpen(false);
+    }
+  };
+
+  if (menuOpen) {
+    window.addEventListener('click', closeMenu);
+  }
+
+  return () => {
+    window.removeEventListener('click', closeMenu);
+  };
+}, [menuOpen]);
+
+
+  useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (!e.target.closest('.avatar-toggle') && !e.target.closest('.avatar-menu')) {
+      setShowDropdown(false);
+    }
+  };
+
+  if (showDropdown) {
+    window.addEventListener('click', handleClickOutside);
+  }
+
+  return () => {
+    window.removeEventListener('click', handleClickOutside);
+  };
+}, [showDropdown]);
+
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 
@@ -77,45 +111,51 @@ function Navbar() {
       </div>
 
       {/* Right: Cart and User Details */}
-      <div className="navbar-right">
-        {isLoggedIn && (
-          <NavLink to="/cart" className="cart-icon-link">
-            <div className="cart-icon-wrapper">
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/cart-icon.svg`}
-                alt="Cart"
-                className="cart-icon"
-              />
-              {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
-            </div>
-          </NavLink>
-        )}
-
-        {isLoggedIn ? (
-          <div className="user-dropdown-wrapper">
-            <span className="nav-user" onClick={toggleDropdown}>👤</span>
-            {showDropdown && (
-              <div className="user-dropdown">
-                <p className="user-name">Hello, {userName}</p>
-                <button className="logout-btn" onClick={handleLogout}>Logout</button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="auth-links">
-            <NavLink to="/login" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Login</NavLink>
-            <NavLink to="/register" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Register</NavLink>
-          </div>
-        )}
+<div className="navbar-right">
+  {isLoggedIn && (
+    <NavLink to="/cart" className="cart-icon-link">
+      <div className="cart-icon-wrapper">
+        <img
+          src={`${process.env.PUBLIC_URL}/assets/cart-icon.svg`}
+          alt="Cart"
+          className="cart-icon"
+        />
+        {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
       </div>
+    </NavLink>
+  )}
+
+  {isLoggedIn ? (
+    <div className="avatar-container">
+      <button className="avatar-toggle" onClick={toggleDropdown}>
+        <img
+          src={`${process.env.PUBLIC_URL}/assets/avatar-icon.png`}
+          alt="User"
+          className="user-icon"
+        />
+      </button>
+
+      {showDropdown && (
+        <div className="avatar-menu">
+          <p>Hello, {userName}</p>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div className="auth-links">
+      <NavLink to="/login" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Login</NavLink>
+      <NavLink to="/register" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Register</NavLink>
+    </div>
+  )}
+</div>
+
 
       {/* Hamburger Menu Items (visible only after login) */}
       {menuOpen && isLoggedIn && (
   <div className="mobile-menu show">
     <NavLink to="/" className="nav-link">Home</NavLink>
     <NavLink to="/products" className="nav-link">Products</NavLink>
-    <p className="nav-link">👤 {userName}</p>
-    <button onClick={handleLogout} className="nav-link logout-btn">Logout</button>
   </div>
 )}
     </nav>

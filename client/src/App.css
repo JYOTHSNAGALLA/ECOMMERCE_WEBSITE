@@ -56,10 +56,11 @@ button {
   border: none;
   color: white;
   cursor: pointer;
-  display: block; /* Always visible */
+  display: block;
   padding: 0.4rem;
   border-radius: 6px;
   transition: background 0.2s ease;
+  z-index: 1001;
 }
 
 .hamburger:hover {
@@ -170,91 +171,63 @@ button {
   font-weight: bold;
 }
 
-.user-dropdown-wrapper {
+.avatar-container {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
-.user-dropdown {
-  position: absolute;
-  top: 110%;
-  right: 0;
-  background-color: #fff;
-  color: #333;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  z-index: 999;
-  animation: slideDown 0.3s ease forwards;
-  min-width: 160px;
-  padding: 0.5rem 0;
-}
-
-.user-dropdown p {
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.user-dropdown button {
-  width: 100%;
-  padding: 0.5rem 1rem;
-  text-align: left;
-  border: none;
+.avatar-toggle {
   background: none;
-  color: #333;
-  font-size: 0.95rem;
+  border: none;
   cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 50%;
+  transition: background 0.2s ease;
 }
 
-.user-dropdown button:hover {
-  background-color: #f3f3f3;
-  color: #111;
+.avatar-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .user-icon {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  cursor: pointer;
+  filter: invert(1);
 }
 
-.dropdown-menu {
+.avatar-menu {
   position: absolute;
-  top: 120%;
+  top: 110%;
   right: 0;
-  background-color: #fff;
-  color: #333;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  min-width: 140px;
-  z-index: 999;
+  background-color: #232f3e;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  animation: slideDown 0.3s ease-in-out;
+  min-width: 180px;
 }
 
-.user-dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.avatar-menu p {
+  color: white;
+  font-size: 0.95rem;
 }
 
-.dropdown-item {
-  padding: 0.8rem 1rem;
-  cursor: pointer;
-  background-color: white;
-  width: 100%;
+.avatar-menu button {
   background: none;
+  color: white;
   border: none;
+  font-size: 0.95rem;
   text-align: left;
+  cursor: pointer;
 }
 
-.dropdown-item:hover {
-  background-color: #f3f3f3;
+.avatar-menu button:hover {
+  color: #febd69;
 }
 
 .logout-btn {
@@ -276,13 +249,30 @@ button {
   background-color: #232f3e;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
   z-index: 1000;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   min-width: 180px;
   animation: slideDown 0.3s ease-in-out;
+}
+
+.mobile-menu a,
+.mobile-menu span,
+.mobile-menu button {
+  color: white;
+  text-decoration: none;
+  font-size: 1.05rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mobile-menu a:hover,
+.mobile-menu button:hover {
+  color: #febd69;
 }
 
 @keyframes slideDown {
@@ -333,7 +323,7 @@ button {
     position: static;
     box-shadow: none;
   }
-  
+
 .mobile-menu a,
 .mobile-menu span,
 .mobile-menu button {
