@@ -13,7 +13,7 @@ import ProductSellingPage from './pages/ProductSellingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchResultsPage from "./pages/SearchResultsPage";
-
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   const [productCount, setProductCount] = useState(0);

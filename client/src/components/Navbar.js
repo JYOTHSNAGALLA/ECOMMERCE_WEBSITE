@@ -12,6 +12,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  <button onClick={() => navigate("/checkout")}>Proceed to Checkout</button>
   const { cartItems } = useCart();
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
