@@ -319,66 +319,102 @@ button {
   }
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
+/* === MOBILE NAVBAR STYLING === */
+@media screen and (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    padding: 0.5rem 1rem;
   }
 
-  .navbar-left, .navbar-center, .navbar-right {
-    width: 100%;
+  .navbar-top {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
-  .navbar-center {
-    order: 3;
-    margin-top: 0.5rem 0;
-  }
-
-  .navbar-right {
-    order: 2;
+  .navbar-logo {
     display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    padding: 0.5rem 0;
+    align-items: center;
   }
 
-  .hamburger {
-    display: block;
+  .logo-img {
+    height: 35px;
+    margin-right: 6px;
   }
 
-  .mobile-menu {
-    width: 100%;
-    left: 0;
-    top: 100%;
-    border-radius: 0;
-    position: static;
-    box-shadow: none;
-  }
-
-.mobile-menu a,
-.mobile-menu span,
-.mobile-menu button {
-  color: white;
-  text-decoration: none;
-  font-size: 1.1rem;
-}
-
-  .mobile-menu.show {
-    display: flex;
-  }
-
-  .mobile-menu .nav-link {
-    padding: 0.7rem 0;
-    font-size: 1.1rem;
+  .logo-text {
+    font-size: 1.3rem;
+    font-weight: 600;
     color: white;
   }
 
-  .mobile-menu .nav-link:hover {
-    color: #febd69;
+  .navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hamburger-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .cart-icon-wrapper,
+  .user-avatar {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: orange;
+    color: white;
+    font-size: 10px;
+    border-radius: 50%;
+    padding: 2px 6px;
+  }
+
+  .user-avatar {
+    background-color: orange;
+    color: black;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 5px 10px;
+  }
+
+  .navbar-search {
+    margin-top: 0.8rem;
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+  }
+
+  .search-input {
+    flex-grow: 1;
+    padding: 0.6rem;
+    border: none;
+    outline: none;
+  }
+
+  .search-button {
+    padding: 0.6rem 1rem;
+    background-color: orange;
+    border: none;
+    cursor: pointer;
   }
 }
+
 
 /* General Enhancements */
 .nav-user {
