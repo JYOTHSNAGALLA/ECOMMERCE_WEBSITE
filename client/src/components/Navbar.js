@@ -8,7 +8,7 @@ import '../App.css';
 
 function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
-  const isLoggedIn = !!user;
+ const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userName = user?.name || 'User';
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
