@@ -17,7 +17,7 @@ function Navbar() {
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
-    document.title = 'Shopora'; // ✅ Update tab title
+    document.title = 'Shopora';
   }, []);
 
   useEffect(() => {
@@ -81,9 +81,7 @@ function Navbar() {
     <nav className="navbar">
       {/* Left: Hamburger & Logo */}
       <div className="navbar-left">
-        {isLoggedIn && (
-          <button className="hamburger" onClick={toggleMenu}>☰</button>
-        )}
+        <button className="hamburger" onClick={toggleMenu}>☰</button>
         <NavLink to="/" className="navbar-logo">
           <img
             src={`${process.env.PUBLIC_URL}/assets/logo.png`}
@@ -114,48 +112,60 @@ function Navbar() {
         </form>
       </div>
 
-      {/* Right: Cart and User */}
+      {/* Right: Cart and Avatar or Auth Links */}
       <div className="navbar-right">
-        {isLoggedIn && (
-          <NavLink to="/cart" className="cart-icon-link">
-            <div className="cart-icon-wrapper">
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/cart-icon.svg`}
-                alt="Cart"
-                className="cart-icon"
-              />
-              {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
-            </div>
-          </NavLink>
-        )}
-
         {isLoggedIn ? (
-          <div className="avatar-container">
-            <button className="avatar-toggle" onClick={toggleDropdown}>
-              <div className="text-avatar">
-                {userName?.charAt(0)?.toUpperCase() || 'U'}
+          <>
+            <NavLink to="/cart" className="cart-icon-link">
+              <div className="cart-icon-wrapper">
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/cart-icon.svg`}
+                  alt="Cart"
+                  className="cart-icon"
+                />
+                {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
               </div>
-            </button>
-            {showDropdown && (
-              <div className="avatar-menu">
-                <p>Hello, {userName}</p>
-                <button onClick={handleLogout}>Logout</button>
-              </div>
-            )}
-          </div>
+            </NavLink>
+
+            <div className="avatar-container">
+              <button className="avatar-toggle" onClick={toggleDropdown}>
+                <div className="text-avatar">
+                  {userName?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
+              </button>
+              {showDropdown && (
+                <div className="avatar-menu">
+                  <p>Hello, {userName}</p>
+                  <NavLink to="/cart">Cart ({itemCount})</NavLink>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+              )}
+            </div>
+          </>
         ) : (
           <div className="auth-links">
-            <NavLink to="/login" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Login</NavLink>
-            <NavLink to="/register" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>Register</NavLink>
+            <NavLink to="/login" className="nav-link">Login</NavLink>
+            <NavLink to="/register" className="nav-link">Register</NavLink>
           </div>
         )}
       </div>
 
-      {/* Hamburger Menu Items (only for logged-in) */}
-      {menuOpen && isLoggedIn && (
+      {/* Hamburger Dropdown (Always Visible) */}
+      {menuOpen && (
         <div className="mobile-menu show">
-          <NavLink to="/" className="nav-link">Home</NavLink>
-          <NavLink to="/products" className="nav-link">Products</NavLink>
+          <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</NavLink>
+          <NavLink to="/products" className="nav-link" onClick={() => setMenuOpen(false)}>Products</NavLink>
+          {isLoggedIn ? (
+            <>
+              <NavLink to="/cart" className="nav-link" onClick={() => setMenuOpen(false)}>Cart</NavLink>
+              <NavLink to="#" className="nav-link" onClick={handleLogout}>Logout</NavLink>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>Login</NavLink>
+              <NavLink to="/register" className="nav-link" onClick={() => setMenuOpen(false)}>Register</NavLink>
+            </>
+          )}
         </div>
       )}
     </nav>
