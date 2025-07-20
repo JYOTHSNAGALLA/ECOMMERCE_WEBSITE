@@ -11,7 +11,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const { cartItems } = useCart();
-  const { user, logout, setUser } = useAuth(); // Ensure useAuth provides setUser
+  const { user, logout, setUser } = useAuth();
   const navigate = useNavigate();
 
   const isLoggedIn = !!user;
@@ -19,26 +19,22 @@ function Navbar() {
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
-  document.title = 'Shopora';
+    document.title = 'Shopora';
 
-  if (!user) {
-    try {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
+    const storedUser = localStorage.getItem('userData');
+    if (!user && storedUser) {
+      try {
         const parsedUser = JSON.parse(storedUser);
         if (parsedUser?.name) {
           setUser(parsedUser);
         }
+      } catch (e) {
+        console.error('Invalid user data in localStorage', e);
+        localStorage.removeItem('userData');
       }
-    } catch (e) {
-      console.error('Invalid user data in localStorage', e);
-      localStorage.removeItem('user');
     }
-  }
-}, [user, setUser]);
+  }, [user, setUser]);
 
-
-  // Close hamburger on outside click
   useEffect(() => {
     const closeMenu = (e) => {
       if (!e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) {
@@ -49,7 +45,6 @@ function Navbar() {
     return () => window.removeEventListener('click', closeMenu);
   }, [menuOpen]);
 
-  // Close avatar dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest('.avatar-toggle') && !e.target.closest('.avatar-menu')) {
@@ -61,7 +56,7 @@ function Navbar() {
   }, [showDropdown]);
 
   const handleLogout = () => {
-    logout(); // Clear auth context
+    logout();
     toast.success('Logged out successfully!');
     navigate('/login');
   };
@@ -75,7 +70,6 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* Left: Logo & Hamburger */}
       <div className="navbar-left">
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
         <NavLink to="/" className="navbar-logo">
@@ -88,7 +82,6 @@ function Navbar() {
         </NavLink>
       </div>
 
-      {/* Center: Search bar */}
       <div className="navbar-center">
         <form onSubmit={handleSearchSubmit} className="search-form">
           <input
@@ -108,7 +101,6 @@ function Navbar() {
         </form>
       </div>
 
-      {/* Right: Cart and Avatar OR Login/Register */}
       <div className="navbar-right">
         {isLoggedIn ? (
           <>
@@ -126,7 +118,7 @@ function Navbar() {
             <div className="avatar-container">
               <button className="avatar-toggle" onClick={() => setShowDropdown(!showDropdown)}>
                 <div className="text-avatar">
-                  {userName?.charAt(0).toUpperCase()}
+                  {userName.charAt(0).toUpperCase()}
                 </div>
               </button>
               {showDropdown && (
@@ -146,7 +138,6 @@ function Navbar() {
         )}
       </div>
 
-      {/* Hamburger Dropdown */}
       {menuOpen && (
         <div className="mobile-menu show">
           <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</NavLink>
