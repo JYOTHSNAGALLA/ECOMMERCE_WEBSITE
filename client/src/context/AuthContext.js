@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState('');
 
-  // Load user from localStorage on mount
+  // Load user and token from localStorage on component mount
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
@@ -33,28 +33,26 @@ export const AuthProvider = ({ children }) => {
       const data = await res.json();
 
       if (res.ok) {
-        // Save to localStorage
         localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('token', data.token);
-
-        // Update context
         setUser(data.user);
         setToken(data.token);
-
         return { success: true, userData: data.user };
       } else {
-        return { success: false };
+        return { success: false, message: data.message || 'Login failed' };
       }
     } catch (error) {
       console.error('Login error:', error);
-      return { success: false };
+      return { success: false, message: 'Server error' };
     }
   };
 
-  // Manual update after login (in case needed separately)
-  const handleLoginSuccess = (userData) => {
+  // Optional: Use this when you already have user data (e.g., from login form)
+  const handleLoginSuccess = (userData, tokenData) => {
     setUser(userData);
+    setToken(tokenData);
     localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', tokenData);
   };
 
   // Logout function

@@ -11,53 +11,54 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const { cartItems } = useCart();
-  const { user, logout } = useAuth(); // ✅ must come before userName
-  const userName = user?.name || 'User'; // ✅ moved here
-  const isLoggedIn = !!user; // ✅ derive login state from user
+  const { user, logout, setUser } = useAuth(); // Ensure useAuth provides setUser
   const navigate = useNavigate();
 
+  const isLoggedIn = !!user;
+  const userName = user?.name || 'User';
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     document.title = 'Shopora';
+
+    // Check localStorage for login on mount (if not already in context)
+    const storedUser = localStorage.getItem('userData');
+    if (!user && storedUser) {
+      try {
+        setUser(JSON.parse(storedUser)); // Update auth context from storage
+      } catch (e) {
+        console.error('Invalid user data in localStorage');
+      }
+    }
   }, []);
 
+  // Close hamburger on outside click
   useEffect(() => {
     const closeMenu = (e) => {
       if (!e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) {
         setMenuOpen(false);
       }
     };
-    if (menuOpen) {
-      window.addEventListener('click', closeMenu);
-    }
-    return () => {
-      window.removeEventListener('click', closeMenu);
-    };
+    if (menuOpen) window.addEventListener('click', closeMenu);
+    return () => window.removeEventListener('click', closeMenu);
   }, [menuOpen]);
 
+  // Close avatar dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest('.avatar-toggle') && !e.target.closest('.avatar-menu')) {
         setShowDropdown(false);
       }
     };
-    if (showDropdown) {
-      window.addEventListener('click', handleClickOutside);
-    }
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
+    if (showDropdown) window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
   }, [showDropdown]);
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const toggleDropdown = () => setShowDropdown(!showDropdown);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
+    logout(); // Clear auth context
     toast.success('Logged out successfully!');
-    logout(); // ✅ call logout from useAuth
     navigate('/login');
   };
 
@@ -70,9 +71,9 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* Left: Hamburger & Logo */}
+      {/* Left: Logo & Hamburger */}
       <div className="navbar-left">
-        <button className="hamburger" onClick={toggleMenu}>☰</button>
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
         <NavLink to="/" className="navbar-logo">
           <img
             src={`${process.env.PUBLIC_URL}/assets/logo.png`}
@@ -83,7 +84,7 @@ function Navbar() {
         </NavLink>
       </div>
 
-      {/* Center: Search */}
+      {/* Center: Search bar */}
       <div className="navbar-center">
         <form onSubmit={handleSearchSubmit} className="search-form">
           <input
@@ -103,7 +104,7 @@ function Navbar() {
         </form>
       </div>
 
-      {/* Right: Cart and Avatar or Auth Links */}
+      {/* Right: Cart and Avatar OR Login/Register */}
       <div className="navbar-right">
         {isLoggedIn ? (
           <>
@@ -119,9 +120,9 @@ function Navbar() {
             </NavLink>
 
             <div className="avatar-container">
-              <button className="avatar-toggle" onClick={toggleDropdown}>
+              <button className="avatar-toggle" onClick={() => setShowDropdown(!showDropdown)}>
                 <div className="text-avatar">
-                  {userName?.charAt(0)?.toUpperCase() || 'U'}
+                  {userName?.charAt(0).toUpperCase()}
                 </div>
               </button>
               {showDropdown && (
@@ -141,15 +142,13 @@ function Navbar() {
         )}
       </div>
 
-      {/* Hamburger Dropdown (Always Visible) */}
+      {/* Hamburger Dropdown */}
       {menuOpen && (
         <div className="mobile-menu show">
           <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</NavLink>
           <NavLink to="/products" className="nav-link" onClick={() => setMenuOpen(false)}>Products</NavLink>
           {isLoggedIn ? (
-            <>
-              <NavLink to="#" className="nav-link" onClick={handleLogout}>Logout</NavLink>
-            </>
+            <NavLink to="#" className="nav-link" onClick={handleLogout}>Logout</NavLink>
           ) : (
             <>
               <NavLink to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>Login</NavLink>
