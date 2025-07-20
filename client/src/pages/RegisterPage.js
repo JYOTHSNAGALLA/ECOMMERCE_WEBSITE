@@ -62,11 +62,11 @@ function RegisterPage() {
             <input type="text" id="username" name="username" required />
             </div>
             <div>
-            <label htmlFor="email">Email (optional):</label>
+            <label htmlFor="email">Email:</label>
             <input type="email" id="email" name="email" required />
             </div>
             <div>
-            <label htmlFor="phone">Phone Number (optional):</label>
+            <label htmlFor="phone">Phone Number:</label>
             <input type="phone" id="phone" name="phone" />
             </div>
             <div>

@@ -124,7 +124,6 @@ function Navbar() {
               {showDropdown && (
                 <div className="avatar-menu">
                   <p>Hello, {userName}</p>
-                  <NavLink to="/cart">Cart ({itemCount})</NavLink>
                   <button onClick={handleLogout}>Logout</button>
                 </div>
               )}

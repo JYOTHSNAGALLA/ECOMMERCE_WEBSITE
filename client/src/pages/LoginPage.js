@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from '../context/AuthContext';
 
@@ -73,7 +73,7 @@ function LoginPage() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-        <p>Don't have an account? <a href="/register">Register</a></p>
+        <p>Don't have an account? <Link to="/register">Register</Link></p>
       </div>
     </div>
   );
