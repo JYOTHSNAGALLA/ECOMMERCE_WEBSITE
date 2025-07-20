@@ -8,12 +8,12 @@ import '../App.css';
 
 function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
- const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const userName = user?.name || 'User';
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const { cartItems } = useCart();
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth(); // ✅ must come before userName
+  const userName = user?.name || 'User'; // ✅ moved here
+  const isLoggedIn = !!user; // ✅ derive login state from user
   const navigate = useNavigate();
 
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -56,8 +56,8 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
-    setIsLoggedIn(false);
     toast.success('Logged out successfully!');
+    logout(); // ✅ call logout from useAuth
     navigate('/login');
   };
 
