@@ -19,18 +19,24 @@ function Navbar() {
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
-    document.title = 'Shopora';
+  document.title = 'Shopora';
 
-    // Check localStorage for login on mount (if not already in context)
-    const storedUser = localStorage.getItem('userData');
-    if (!user && storedUser) {
-      try {
-        setUser(JSON.parse(storedUser)); // Update auth context from storage
-      } catch (e) {
-        console.error('Invalid user data in localStorage');
+  if (!user) {
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser?.name) {
+          setUser(parsedUser);
+        }
       }
+    } catch (e) {
+      console.error('Invalid user data in localStorage', e);
+      localStorage.removeItem('user');
     }
-  }, []);
+  }
+}, [user, setUser]);
+
 
   // Close hamburger on outside click
   useEffect(() => {
@@ -55,8 +61,6 @@ function Navbar() {
   }, [showDropdown]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData');
     logout(); // Clear auth context
     toast.success('Logged out successfully!');
     navigate('/login');
