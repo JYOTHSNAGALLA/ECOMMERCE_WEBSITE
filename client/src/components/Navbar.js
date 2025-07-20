@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 
 function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
+  const isLoggedIn = !!user;
+  const userName = user?.name || 'User';
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const { cartItems } = useCart();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     document.title = 'Shopora';
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    if (token && userData) {
-      setIsLoggedIn(true);
-      setUserName(userData.name || 'User');
-    } else {
-      setIsLoggedIn(false);
-    }
   }, []);
 
   useEffect(() => {
@@ -157,7 +148,6 @@ function Navbar() {
           <NavLink to="/products" className="nav-link" onClick={() => setMenuOpen(false)}>Products</NavLink>
           {isLoggedIn ? (
             <>
-              <NavLink to="/cart" className="nav-link" onClick={() => setMenuOpen(false)}>Cart</NavLink>
               <NavLink to="#" className="nav-link" onClick={handleLogout}>Logout</NavLink>
             </>
           ) : (

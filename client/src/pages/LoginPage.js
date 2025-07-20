@@ -1,9 +1,18 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { useAuth } from '../context/AuthContext';
 
 function LoginPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+
+  const handleLoginSuccess = (userData, token) => {
+    localStorage.setItem("token", token);                // ✅ save token
+    localStorage.setItem("userData", JSON.stringify(userData)); // ✅ save user info
+    login(userData);                                     // ✅ update context
+    navigate('/');
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -36,10 +45,8 @@ function LoginPage() {
         return;
       }
 
-      if (data.token) {
-        localStorage.setItem("token", data.token); // ✅ fixed this line
-        localStorage.setItem("userData", JSON.stringify(data.userData));
-        navigate("/"); // ✅ redirect after login
+      if (data.token && data.userData) {
+        handleLoginSuccess(data.userData, data.token);  // ✅ trigger login logic
       }
     } catch (err) {
       console.error("Login error:", err);
