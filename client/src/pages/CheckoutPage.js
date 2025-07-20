@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const CheckoutPage = () => {
-  const { cartItems, totalPrice } = useContext(CartContext);
+  const { cartItems, totalPrice, clearCart} = useContext(CartContext);
   const navigate = useNavigate();
 
   const handlePlaceOrder = () => {
     alert('Order placed successfully!');
+    clearCart();
     navigate('/thank-you', {
   state: {
     orderId: "ORD12345678",
